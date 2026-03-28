@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---- Data Models ----
+
+model User {
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  role            String            @default("investor") // "investor", "adviser", "admin"
+  avatarColor     String            @default("#6366f1")
+  createdAt       DateTime          @default(now())
+  
+  riskProfile     RiskProfile?
+  portfolio       Portfolio?
+  messages        Message[]
+  escalations     EscalationCase[]  @relation("EscalatedUser")
+  handledCases    EscalationCase[]  @relation("CaseAdviser")
+  auditLogs       AuditLogEntry[]
+}
+
+model RiskProfile {
+  id                  String   @id @default(uuid())
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String   @unique
+  score               Int
+  category            String   // "conservative", "moderate", "growth"
+  timeHorizon         Int
+  hasEmergencyFund    Boolean
+  liquidityNeed       String
+  lossTolerance       String
+  investingKnowledge  String
+  incomeStability     String
+  lastUpdated         DateTime @default(now())
+}
+
+model Portfolio {
+  id                    String    @id @default(uuid())
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                String    @unique
+  totalValue            Float
+  weightedExpenseRatio  Float
+  lastRebalanced        DateTime
+  driftStatus           String    @default("within-band") // "within-band", "needs-rebalance", "crisis-hold"
+  createdAt             DateTime  @default(now())
+  
+  holdings              Holding[]
+}
+
+model Holding {
+  id            String    @id @default(uuid())
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  portfolioId   String
+  ticker        String
+  name          String
+  targetWeight  Float
+  currentWeight Float
+  drift         Float
+  value         Float
+  category      String
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  type        String
+  title       String
+  content     String
+  read        Boolean  @default(false)
+  priority    String   @default("low") // "low", "medium", "high", "urgent"
+  timestamp   DateTime @default(now())
+}
+
+model EscalationCase {
+  id                String   @id @default(uuid())
+  user              User     @relation("EscalatedUser", fields: [userId], references: [id])
+  userId            String
+  adviser           User?    @relation("CaseAdviser", fields: [adviserId], references: [id])
+  adviserId         String?
+  reason            String
+  status            String   @default("open") // "open", "in-progress", "resolved", "closed"
+  notes             String   // Store as JSON or simple text
+  recentBehavior    String   // Store as JSON or simple text
+  questionnaireAge  Int
+  panicSellSignal   Boolean  @default(false)
+  liquidityRiskFlag Boolean  @default(false)
+  complianceNotes   String   // Store as JSON or simple text
+  riskScore         Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AuditLogEntry {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  action      String
+  detail      String
+  category    String
+  performedBy String
+  timestamp   DateTime @default(now())
+}
+
+// Note: Market Scenarios and Disclosures might remain hardcoded or get their own tables depending on whether staff needs to edit them dynamically.
