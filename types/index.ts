@@ -260,3 +260,35 @@ export interface AppState {
   toggleFinGuide: () => void;
   setOnboardingComplete: (val: boolean) => void;
 }
+
+// ---- Trading Algo Lab ----
+export type TradeSignal = 'buy' | 'sell' | 'hold';
+
+export interface MarketDataPoint {
+  timestamp: string;
+  price: number;
+  volume: number;
+}
+
+export interface TechnicalIndicators {
+  sma50: number;
+  sma200: number;
+  rsi: number;
+}
+
+export interface AlgoVerdict {
+  signal: TradeSignal;
+  strength: number; // 0-100
+  reasoning: string[];
+  indicators: TechnicalIndicators;
+}
+
+export interface TradingStrategy {
+  name: string;
+  rsiPeriod: number;
+  rsiOverbought: number;
+  rsiOversold: number;
+  stopLossPct: number;
+  takeProfitPct: number;
+}
+

@@ -49,15 +49,17 @@ export default function ForecastPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-         <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-400 to-teal-500 text-transparent bg-clip-text inline-flex items-center gap-3">
-           <Presentation className="h-8 w-8 text-emerald-500" />
-           Investment Forecaster
-         </h1>
-         <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed">
+        <div>
+          <h1 className="text-4xl font-extrabold tracking-tight flex items-center gap-3">
+            <div className="h-11 w-11 rounded-2xl bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center">
+              <Presentation className="h-6 w-6 text-white" />
+            </div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-400">Investment Forecaster</span>
+          </h1>
+          <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed">
             Customize your inputs and risk appetite to project your wealth compounding over time. Inject a <strong>Crisis Catalyst</strong> to visualize how staying the course historically heals deep portfolio wounds.
-         </p>
-      </div>
+          </p>
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
          {/* LEFT CONTROLS */}
@@ -154,28 +156,28 @@ export default function ForecastPage() {
          {/* RIGHT CHART */}
          <div className="lg:col-span-3 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <Card className="bg-surface-100 border-white/5">
+               <Card className="bg-surface-100 border-white/5 shadow-xl">
                   <CardContent className="pt-6">
-                     <p className="text-sm font-semibold uppercase tracking-widest text-surface-400 mb-1">Total Principal</p>
-                     <div className="text-3xl font-mono text-white tracking-tight">{formatCurrency(totalInvested)}</div>
-                     <p className="text-xs text-surface-500 mt-2">Money out of your pocket</p>
+                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-surface-500 mb-2">Total Principal</p>
+                     <div className="text-3xl font-black text-white tracking-tighter tabular-nums">{formatCurrency(totalInvested)}</div>
+                     <p className="text-[10px] text-surface-400 mt-2 font-medium opacity-60 italic">Direct cash contributions</p>
                   </CardContent>
                </Card>
-               <Card className="bg-surface-100 border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.05)]">
+               <Card className="bg-surface-100 border-emerald-500/30 shadow-2xl glow-success">
                   <CardContent className="pt-6">
-                     <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400/80 mb-1">Smooth Expected Value</p>
-                     <div className="text-3xl font-mono text-emerald-400 font-bold tracking-tight">{formatCurrency(targetEndValue)}</div>
-                     <p className="text-xs text-surface-400 mt-2">Assuming perfect {riskLevel.returnRate * 100}% growth</p>
+                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500 mb-2">Target Growth</p>
+                     <div className="text-3xl font-black text-emerald-400 tracking-tighter glow-text-success tabular-nums">{formatCurrency(targetEndValue)}</div>
+                     <p className="text-[10px] text-emerald-500/60 mt-2 font-medium">Assuming {riskLevel.returnRate * 100}% annual yield</p>
                   </CardContent>
                </Card>
-               <Card className={`border transition-all duration-300 ${enableCrisis ? 'bg-red-500/5 border-red-500/30' : 'bg-surface-100 border-white/5 opacity-50'}`}>
+               <Card className={`border-2 transition-all duration-500 ${enableCrisis ? 'bg-rose-500/5 border-rose-500/50 glow-error scale-105 z-10' : 'bg-surface-100 border-white/5 opacity-50'}`}>
                   <CardContent className="pt-6">
-                     <p className={`text-sm font-semibold uppercase tracking-widest mb-1 ${enableCrisis ? 'text-red-400/80' : 'text-surface-500'}`}>Crisis Adjusted Value</p>
-                     <div className={`text-3xl font-mono font-bold tracking-tight ${enableCrisis ? 'text-red-400' : 'text-surface-500'}`}>
+                     <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${enableCrisis ? 'text-rose-400' : 'text-surface-500'}`}>Crisis Adjusted</p>
+                     <div className={`text-3xl font-black tracking-tighter tabular-nums ${enableCrisis ? 'text-rose-500 glow-text-error' : 'text-surface-500'}`}>
                         {enableCrisis ? formatCurrency(crisisEndValue) : "Inactive"}
                      </div>
-                     <p className="text-xs text-surface-400 mt-2">
-                        {enableCrisis ? `Cost of panic selling: ${formatCurrency(difference)}` : "Turn on Stress Test"}
+                     <p className="text-[10px] text-surface-400 mt-2 font-medium">
+                        {enableCrisis ? `Paper Loss: ${formatCurrency(difference)}` : "Turn on Stress Test"}
                      </p>
                   </CardContent>
                </Card>

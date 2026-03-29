@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
+    --background: 240 20% 2%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 6%;
+    --card: 240 18% 4%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 6%;
+    --popover: 240 18% 4%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 235 86% 65%;
+    --primary: 258 90% 66%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 4.8% 15.9%;
+    --secondary: 240 10% 10%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 240 10% 10%;
+    --muted-foreground: 240 5% 70%;
 
-    --accent: 240 4.8% 15.9%;
+    --accent: 258 90% 66%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 240 10% 12%;
+    --input: 240 10% 12%;
+    --ring: 258 90% 66%;
   }
 }
 
@@ -61,11 +61,31 @@
 
 @layer utilities {
   .glass-panel {
-    @apply bg-surface-100/60 backdrop-blur-md border border-white/5 shadow-xl;
+    @apply bg-surface-100/40 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-300 to-brand-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-300 via-brand-500 to-neon-violet;
+  }
+
+  .glow-primary {
+    @apply shadow-[0_0_15px_rgba(139,92,246,0.3)];
+  }
+
+  .glow-success {
+    @apply shadow-[0_0_15px_rgba(16,185,129,0.3)];
+  }
+
+  .glow-error {
+    @apply shadow-[0_0_15px_rgba(244,63,94,0.3)];
+  }
+
+  .glow-text-primary {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+
+  .glow-text-success {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
   }
 }
 

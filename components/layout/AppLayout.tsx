@@ -13,7 +13,8 @@ import {
   FileBadge,
   LogOut,
   Settings,
-  Presentation
+  Presentation,
+  Binary
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FinGuidePanel } from "@/components/finguide/FinGuidePanel";
@@ -23,6 +24,7 @@ const INVESTOR_LINKS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/portfolio", label: "Portfolio Details", icon: PieChart },
   { href: "/forecast", label: "Forecaster", icon: Presentation },
+  { href: "/algo-lab", label: "Algo Lab", icon: Binary },
   { href: "/crisis-simulator", label: "Crisis Simulator", icon: ActivitySquare },
   { href: "/communications", label: "Message Center", icon: MessageSquare },
 ];
@@ -54,11 +56,11 @@ export function TopNav() {
     <header className="sticky top-0 z-40 w-full border-b border-white/5 bg-surface-0/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-brand-500 flex items-center justify-center">
-              <ShieldAlert className="h-4 w-4 text-white" />
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="h-9 w-9 rounded-xl bg-brand-500 shadow-[0_0_20px_rgba(139,92,246,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+              <ShieldAlert className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-semibold tracking-tight">Crisis-Aware</span>
+            <span className="text-xl font-bold tracking-tight text-white">Crisis<span className="text-brand-400">Aware</span></span>
           </Link>
 
           {user && (
@@ -88,7 +90,7 @@ export function TopNav() {
           {user ? (
             <div className="flex items-center gap-4">
               {role === "investor" && (
-                <Button variant="outline" size="sm" onClick={toggleFinGuide}>
+                <Button variant="outline" size="sm" onClick={toggleFinGuide} className="border-brand-500/50 text-brand-300 hover:bg-brand-500/10 glow-primary transition-all">
                   ✨ FinGuide
                 </Button>
               )}
