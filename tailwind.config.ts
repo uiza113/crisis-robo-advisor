@@ -43,34 +43,34 @@ const config: Config = {
           foreground: "hsl(var(--destructive-foreground))",
         },
         brand: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6', // More vibrant violet-indigo
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50: '#fffcf2',
+          100: '#fff9e6',
+          200: '#f7edcc',
+          300: '#e6d59c',
+          400: '#d9c273',
+          500: '#D4AF37', // Champagne Gold
+          600: '#b8942b',
+          700: '#947622',
+          800: '#70591a',
+          900: '#4d3d12',
+          950: '#261e09',
         },
         surface: {
-          0: '#050508', // Deeper black
-          50: '#09090f',
-          100: '#0e0e16',
-          200: '#141421',
-          300: '#1b1b2e',
-          400: '#252541',
-          500: '#34345c',
+          0: '#030305', // Deepest Obsidian
+          50: '#07070a',
+          100: '#0b0b0f', // Midnight Slate
+          200: '#11111a',
+          300: '#181824',
+          400: '#222233',
+          500: '#33334d',
         },
         neon: {
-          blue: '#3b82f6',
-          cyan: '#06b6d4',
-          emerald: '#10b981',
-          violet: '#8b5cf6',
-          rose: '#f43f5e',
-          amber: '#f59e0b',
+          blue: '#60a5fa',
+          cyan: '#22d3ee',
+          emerald: '#34d399',
+          violet: '#a78bfa',
+          rose: '#fb7185',
+          amber: '#fbbf24',
         }
       },
       fontFamily: {
@@ -84,8 +84,13 @@ const config: Config = {
         'pulse-gentle': 'pulseGentle 2s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'float': 'float 3s ease-in-out infinite',
+        'shimmer': 'shimmer 3s linear infinite',
       },
       keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },

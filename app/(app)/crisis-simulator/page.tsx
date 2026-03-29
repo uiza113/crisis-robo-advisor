@@ -97,14 +97,14 @@ export default function CrisisSimulatorPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-extrabold tracking-tight flex items-center gap-3">
-          <div className="h-11 w-11 rounded-2xl bg-indigo-500 shadow-[0_0_20px_rgba(139,92,246,0.4)] flex items-center justify-center">
+        <h1 className="text-4xl font-extrabold tracking-tighter flex items-center gap-3">
+          <div className="h-11 w-11 rounded-2xl bg-brand-500 shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center">
             <ActivitySquare className="h-6 w-6 text-white" />
           </div>
           <span className="text-gradient">Crisis Engine Simulator</span>
         </h1>
-        <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed">
-          Observe how the transparent, rule-based crisis engine protects investors by adapting its recommendations based on market stress and behavioral signals.
+        <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed font-medium">
+          Observe how the transparent, rule-based crisis engine protects investors with sophisticated, elegant wealth management guardrails.
         </p>
       </div>
 
@@ -126,7 +126,7 @@ export default function CrisisSimulatorPage() {
                    variant={activeScenario.id === scenario.id ? "default" : "outline"}
                    className={`w-full justify-start text-left h-auto py-3 ${
                      activeScenario.id === scenario.id 
-                    ? "bg-brand-600 border-transparent shadow-[0_0_20px_rgba(139,92,246,0.5)] glow-primary" 
+                    ? "bg-brand-500 border-transparent shadow-[0_0_20px_rgba(212,175,55,0.4)] glow-primary text-white scale-105" 
                     : "border-surface-300 hover:bg-surface-200"
                 }`}
                    onClick={() => setActiveScenario(scenario)}
@@ -219,8 +219,8 @@ export default function CrisisSimulatorPage() {
                     </Badge>
                   </div>
                 </div>
-                <div className="text-right w-full md:w-auto mt-2 md:mt-0 p-4 rounded-xl bg-surface-100/60 backdrop-blur-xl border border-white/10 shrink-0 shadow-2xl glow-primary">
-                  <span className="text-[10px] uppercase text-brand-400 font-black tracking-widest block mb-1">Engine Decision</span>
+                <div className="text-right w-full md:w-auto mt-2 md:mt-0 p-4 rounded-xl bg-surface-100/60 backdrop-blur-3xl border border-white/10 shrink-0 shadow-2xl glow-primary">
+                  <span className="text-[10px] uppercase text-brand-500 font-black tracking-widest block mb-1">Engine Consensus</span>
                   <span className={`text-2xl font-black tracking-tighter ${actionColor(crisisAssessment.actionRecommendation).split(' ')[0]}`}>
                     {actionLabel(crisisAssessment.actionRecommendation)}
                   </span>

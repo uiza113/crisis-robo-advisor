@@ -57,10 +57,10 @@ export function TopNav() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="h-9 w-9 rounded-xl bg-brand-500 shadow-[0_0_20px_rgba(139,92,246,0.5)] flex items-center justify-center transition-transform group-hover:scale-110">
+            <div className="h-9 w-9 rounded-xl bg-brand-500 shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center transition-transform group-hover:scale-110">
               <ShieldAlert className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-white">Crisis<span className="text-brand-400">Aware</span></span>
+            <span className="text-xl font-bold tracking-tight text-white group-hover:shimmer-text transition-all">Crisis<span className="text-brand-400">Aware</span></span>
           </Link>
 
           {user && (
@@ -90,7 +90,7 @@ export function TopNav() {
           {user ? (
             <div className="flex items-center gap-4">
               {role === "investor" && (
-                <Button variant="outline" size="sm" onClick={toggleFinGuide} className="border-brand-500/50 text-brand-300 hover:bg-brand-500/10 glow-primary transition-all">
+                <Button variant="outline" size="sm" onClick={toggleFinGuide} className="border-brand-500/50 text-brand-400 hover:bg-brand-500/10 glow-primary transition-all font-bold tracking-tight">
                   ✨ FinGuide
                 </Button>
               )}

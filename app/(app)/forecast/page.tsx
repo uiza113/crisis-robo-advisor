@@ -50,14 +50,14 @@ export default function ForecastPage() {
   return (
     <div className="space-y-6">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight flex items-center gap-3">
-            <div className="h-11 w-11 rounded-2xl bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] flex items-center justify-center">
+          <h1 className="text-4xl font-extrabold tracking-tighter flex items-center gap-3">
+            <div className="h-11 w-11 rounded-2xl bg-brand-500 shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center">
               <Presentation className="h-6 w-6 text-white" />
             </div>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-400">Investment Forecaster</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-300 via-brand-500 to-white">Investment Forecaster</span>
           </h1>
-          <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed">
-            Customize your inputs and risk appetite to project your wealth compounding over time. Inject a <strong>Crisis Catalyst</strong> to visualize how staying the course historically heals deep portfolio wounds.
+          <p className="text-surface-400 mt-2 max-w-3xl leading-relaxed font-medium">
+            Customize your inputs and risk appetite to project your wealth compounding over time. Inject a <strong>Crisis Catalyst</strong> to visualize the elegance of staying the course.
           </p>
         </div>
 
@@ -158,21 +158,21 @@ export default function ForecastPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                <Card className="bg-surface-100 border-white/5 shadow-xl">
                   <CardContent className="pt-6">
-                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-surface-500 mb-2">Total Principal</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-surface-500 mb-2">Total Principal</p>
                      <div className="text-3xl font-black text-white tracking-tighter tabular-nums">{formatCurrency(totalInvested)}</div>
                      <p className="text-[10px] text-surface-400 mt-2 font-medium opacity-60 italic">Direct cash contributions</p>
                   </CardContent>
                </Card>
-               <Card className="bg-surface-100 border-emerald-500/30 shadow-2xl glow-success">
+               <Card className="bg-surface-100 border-brand-500/30 shadow-2xl glow-primary">
                   <CardContent className="pt-6">
-                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500 mb-2">Target Growth</p>
-                     <div className="text-3xl font-black text-emerald-400 tracking-tighter glow-text-success tabular-nums">{formatCurrency(targetEndValue)}</div>
-                     <p className="text-[10px] text-emerald-500/60 mt-2 font-medium">Assuming {riskLevel.returnRate * 100}% annual yield</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-500 mb-2">Target Growth</p>
+                     <div className="text-3xl font-black text-brand-400 tracking-tighter glow-text-primary tabular-nums">{formatCurrency(targetEndValue)}</div>
+                     <p className="text-[10px] text-brand-500/60 mt-2 font-medium">Assuming {riskLevel.returnRate * 100}% annual yield</p>
                   </CardContent>
                </Card>
                <Card className={`border-2 transition-all duration-500 ${enableCrisis ? 'bg-rose-500/5 border-rose-500/50 glow-error scale-105 z-10' : 'bg-surface-100 border-white/5 opacity-50'}`}>
                   <CardContent className="pt-6">
-                     <p className={`text-[10px] font-bold uppercase tracking-[0.2em] mb-2 ${enableCrisis ? 'text-rose-400' : 'text-surface-500'}`}>Crisis Adjusted</p>
+                     <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-2 ${enableCrisis ? 'text-rose-400' : 'text-surface-500'}`}>Crisis Adjusted</p>
                      <div className={`text-3xl font-black tracking-tighter tabular-nums ${enableCrisis ? 'text-rose-500 glow-text-error' : 'text-surface-500'}`}>
                         {enableCrisis ? formatCurrency(crisisEndValue) : "Inactive"}
                      </div>
@@ -248,7 +248,7 @@ export default function ForecastPage() {
                            <Area 
                               type="monotone" 
                               dataKey="expectedValue" 
-                              stroke="#10b981" 
+                              stroke="#D4AF37" 
                               fillOpacity={1} 
                               fill="url(#colorExpected)" 
                               strokeWidth={enableCrisis ? 1 : 3}
@@ -259,7 +259,7 @@ export default function ForecastPage() {
                               <Area 
                                  type="monotone" 
                                  dataKey="crisisValue" 
-                                 stroke="#ef4444" 
+                                 stroke="#fb7185" 
                                  fillOpacity={1} 
                                  fill="url(#colorCrisis)" 
                                  strokeWidth={3}

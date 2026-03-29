@@ -2,13 +2,17 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { 
-  Binary, 
+  Coins, 
+  CircleDollarSign, 
+  Dog, 
+  Wallet2, 
   Settings2, 
   AlertCircle, 
   TrendingUp, 
   RefreshCcw, 
   ShieldCheck,
-  Zap
+  Zap,
+  Binary
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,9 +20,9 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { SignalGauge } from "@/components/algo/SignalGauge";
 import { AlgoHistoryChart } from "@/components/algo/AlgoHistoryChart";
-import { BTC_HISTORY } from "@/lib/algo-data";
 import { generateTradingVerdict, calculateSMA, calculateRSI } from "@/lib/algo-engine";
-import { TradingStrategy } from "@/types";
+import { TradingStrategy, MarketDataPoint } from "@/types";
+import { CRYPTO_HISTORIES } from "@/lib/algo-data";
 
 export default function AlgoLabPage() {
   const [strategy, setStrategy] = useState<TradingStrategy>({
@@ -30,12 +34,14 @@ export default function AlgoLabPage() {
     takeProfitPct: 15
   });
 
+  const [selectedAsset, setSelectedAsset] = useState<string>("BTC");
   const [simulatedBalance, setSimulatedBalance] = useState(10000);
-  const [lastSignal, setLastSignal] = useState<string>("neutral");
+
+  const activeHistory = useMemo(() => CRYPTO_HISTORIES[selectedAsset], [selectedAsset]);
 
   // Enrich historical data with indicators
   const chartData = useMemo(() => {
-    return BTC_HISTORY.map((point, index, array) => {
+    return activeHistory.map((point: MarketDataPoint, index: number, array: MarketDataPoint[]) => {
       const historySlice = array.slice(0, index + 1);
       return {
         ...point,
@@ -44,18 +50,25 @@ export default function AlgoLabPage() {
         rsi: calculateRSI(historySlice, strategy.rsiPeriod)
       };
     });
-  }, [strategy.rsiPeriod]);
+  }, [activeHistory, strategy.rsiPeriod]);
 
   // Get current verdict
   const verdict = useMemo(() => {
-    return generateTradingVerdict(BTC_HISTORY, strategy);
-  }, [strategy]);
+    return generateTradingVerdict(activeHistory, strategy);
+  }, [activeHistory, strategy]);
 
   const stats = [
-    { label: "Current Price", value: `$${BTC_HISTORY[BTC_HISTORY.length - 1].price.toLocaleString()}`, icon: TrendingUp, color: "text-white" },
+    { label: "Current Price", value: `$${activeHistory[activeHistory.length - 1].price.toLocaleString()}`, icon: TrendingUp, color: "text-white" },
     { label: "Paper Balance", value: `$${simulatedBalance.toLocaleString()}`, icon: Zap, color: "text-brand-400" },
-    { label: "Win Rate (Sim)", value: "64.2%", icon: ShieldCheck, color: "text-emerald-500" },
+    { label: "Win Rate (Sim)", value: selectedAsset === 'USDT' ? 'N/A' : "64.2%", icon: ShieldCheck, color: "text-emerald-500" },
   ];
+
+  const assetIcons: Record<string, any> = {
+    BTC: Coins,
+    ETH: Wallet2,
+    USDT: CircleDollarSign,
+    DOGE: Dog
+  };
 
   return (
     <div className="space-y-6">
@@ -69,11 +82,24 @@ export default function AlgoLabPage() {
           </h1>
           <p className="text-surface-400 mt-2 max-w-md">Design and stress-test automated trading algorithms on high-fidelity BTC price history.</p>
         </div>
-        <div className="flex items-center gap-2">
-           <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
-            <RefreshCcw className="h-4 w-4 mr-2" />
-            Reset Simulation
-           </Button>
+        <div className="flex flex-col md:flex-row items-center gap-3 bg-surface-100 p-1.5 rounded-2xl border border-white/5 shadow-inner">
+           {Object.keys(CRYPTO_HISTORIES).map((asset) => {
+             const Icon = assetIcons[asset];
+             return (
+               <button
+                 key={asset}
+                 onClick={() => setSelectedAsset(asset)}
+                 className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all duration-300 font-bold text-xs uppercase tracking-tighter ${
+                   selectedAsset === asset 
+                   ? 'bg-brand-500 text-white shadow-lg glow-primary scale-105' 
+                   : 'text-surface-400 hover:text-white hover:bg-white/5'
+                 }`}
+               >
+                 <Icon className="h-4 w-4" />
+                 {asset}
+               </button>
+             );
+           })}
         </div>
       </div>
 
@@ -111,7 +137,9 @@ export default function AlgoLabPage() {
         <Card className="lg:col-span-2 shadow-2xl border-white/5 overflow-hidden">
           <CardHeader className="border-b border-white/5 bg-surface-100/50">
             <div className="flex justify-between items-center">
-              <CardTitle className="text-sm font-medium">BTC/USD Technical Analysis (100 Days)</CardTitle>
+              <CardTitle className="text-sm font-medium tracking-wide flex items-center gap-2">
+                <span className="text-brand-400">{selectedAsset}</span> technical Analysis (100 Days)
+              </CardTitle>
               <div className="flex gap-4 text-[10px] uppercase font-mono text-surface-400">
                 <span className="flex items-center gap-1"><div className="w-2 h-0.5 bg-white"></div> Price</span>
                 <span className="flex items-center gap-1"><div className="w-2 h-0.5 bg-indigo-500"></div> SMA 50</span>

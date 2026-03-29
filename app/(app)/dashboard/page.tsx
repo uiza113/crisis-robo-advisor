@@ -110,8 +110,8 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-gradient mb-2">Welcome back, {currentUser?.name?.split(' ')[0]}</h1>
-          <p className="text-surface-400 max-w-lg">Your automated, crisis-aware portfolio is actively monitoring global market signals.</p>
+          <h1 className="text-4xl font-extrabold tracking-tighter text-gradient mb-2">Welcome back, {currentUser?.name?.split(' ')[0]}</h1>
+          <p className="text-surface-400 max-w-lg font-medium">Your automated, crisis-aware portfolio is currently optimized for long-term elegance.</p>
         </div>
         <div className="flex items-center gap-2 bg-surface-100 border border-white/5 p-2 rounded-lg backdrop-blur-md">
           <Badge variant="glass" className="font-mono">{activeScenario.name}</Badge>
@@ -138,12 +138,12 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1 bg-surface-0/60 backdrop-blur-md p-5 rounded-xl border border-white/10 glow-primary">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-400 font-bold mb-2">Engine Recommendation</p>
-                <div className={`text-xl font-black flex items-center tracking-tight ${actionColor(crisisAssessment.actionRecommendation).split(' ')[0]}`}>
+              <div className="flex-1 bg-surface-100/40 backdrop-blur-2xl p-5 rounded-2xl border border-white/5 glow-primary">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-brand-500 font-black mb-2">Engine Consensus</p>
+                <div className={`text-2xl font-black flex items-center tracking-tighter ${actionColor(crisisAssessment.actionRecommendation).split(' ')[0]}`}>
                   {actionLabel(crisisAssessment.actionRecommendation)}
                 </div>
-                <p className="text-sm mt-3 text-surface-200 leading-relaxed font-medium">
+                <p className="text-sm mt-3 text-surface-300 leading-relaxed font-medium">
                   {crisisAssessment.explanations[crisisAssessment.explanations.length - 1]}
                 </p>
               </div>
@@ -174,7 +174,7 @@ export default function DashboardPage() {
               <div className="text-4xl font-black tabular-nums tracking-tighter text-white glow-text-primary">
                 {formatCurrency(portfolio.totalValue)}
               </div>
-              <div className="flex items-center justify-end text-xs text-rose-500 mt-1 font-bold tracking-wider">
+              <div className="flex items-center justify-end text-[10px] text-rose-500 mt-2 font-black tracking-[0.1em] uppercase">
                 <TrendingDown className="h-3.5 w-3.5 mr-1" />
                 {activeScenario.drawdown}% CRISIS IMPACT
               </div>
